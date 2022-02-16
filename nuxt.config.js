@@ -65,8 +65,8 @@ export default {
   env: {
     // API: 'https://sabadoryo.com/api/',
     API: 'https://backend.tabigat.media/api/',
-    clientId: '739b4be15d54f0f6459509b88710252c',
-    clientSecret: '338d4703f1c607f4cfbc969288df0d58'
+    clientId: '8c4b8555bcb2e5169145517fd365a273',
+    clientSecret: '7549f3702bb0024b4af1d9fbd7dcc950'
   },
 
   // Content module configuration: https://go.nuxtjs.dev/config-content
