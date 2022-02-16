@@ -13,37 +13,12 @@
 
 // blocks
 @import "blocks/container";
-@import "blocks/header";
 @import "blocks/button";
-@import "blocks/footer";
 @import "blocks/main";
-@import "blocks/welcome-section";
-@import "blocks/card";
-@import "blocks/default-view";
-@import "blocks/accent-section";
-@import "blocks/accent-card";
-@import "blocks/fluid-view";
-@import "blocks/red-book";
-@import "blocks/red-card";
-@import "blocks/solo-view";
-@import "blocks/staggered-view";
-@import "blocks/staggered-card";
 @import "blocks/mailing-section";
-@import "blocks/rubrics";
-@import "blocks/breadcrumb";
-@import "blocks/padding";
-@import "blocks/rubric-page";
-@import "blocks/rubric-details";
-@import "blocks/collaborators-box";
-@import "blocks/recommend-box";
-@import "blocks/status-box";
 @import "blocks/contact-page";
 @import "blocks/contact-box";
-@import "blocks/search-page";
 @import "blocks/modal";
-@import "blocks/about-page";
-@import "blocks/sidebar";
-@import "blocks/author-page";
 @import "blocks/loader";
 
 html, body {

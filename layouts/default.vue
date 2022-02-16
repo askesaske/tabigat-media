@@ -1,21 +1,11 @@
 <template>
   <div class="ultra-main">
-    <div id="top-dot" class="top-dot"></div>
-    <Header />
     <Nuxt />
-    <Footer />
-    <scroll-up></scroll-up>
   </div>
 </template>
 
 <script>
-import ScrollUp from "../components/ScrollUp";
 
-export default {
-  components: {
-    ScrollUp
-  }
-}
 </script>
 
 <style lang="scss">

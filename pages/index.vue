@@ -1,962 +1,188 @@
 <template>
-  <main class="main">
+  <div class="contact-page">
+    <img src="../assets/img/contact-bg-left.svg" alt="" class="contact-page__bg contact-page__bg--left">
+    <img src="../assets/img/contact-bg-right.svg" alt="" class="contact-page__bg contact-page__bg--right">
+    <div class="contact-page__container">
 
-    <section class="main__section welcome-section">
+      <div class="contact-page__heading heading-large">
+        Сайт онлайн-журнала Tabigat Media
+        находится в разработке
+      </div>
 
-      <div class="welcome-section__container">
+      <!--      <div class="contact-page__subtitle">-->
+      <!--        Мы всегда готовы помочь и ответить на все ваши вопросы.-->
+      <!--      </div>-->
 
-        <div class="welcome-section__main">
+      <div class="contact-page__external-box">
+        <div class="contact-page__box contact-box">
 
-          <nuxt-link tag="div"
-                     :to="'/' + loadedDailyArticle[0].rubric.slug + ':' + loadedDailyArticle[0].rubric.id +
-                     '/' + loadedDailyArticle[0].slug + ':' + loadedDailyArticle[0].id"
-                     class="welcome-section__box"
-                     v-if="loadedDailyArticle.length > 0">
-            <img :src="loadedDailyArticle[0].preview_image_big_url" alt="" class="welcome-section__img">
-
-            <div class="welcome-section__box-info">
-              <div class="welcome-section__heading">
-                Новость дня
-              </div>
-
-              <div class="welcome-section__title">
-                {{ loadedDailyArticle[0].title }}
-              </div>
-
-              <div class="welcome-section__subtitle">
-                {{ loadedDailyArticle[0].description }}
-              </div>
-            </div>
-
-          </nuxt-link>
-
-          <div class="welcome-section__scroll-box" v-if="loadedOrder1.length > 0">
-            <div class="welcome-section__items">
-
-              <nuxt-link tag="div" :to="'/' + article.rubric.slug + ':' + article.rubric.id +
-                         '/' + article.slug + ':' + article.id"
-                         class="welcome-section__item"
-                         v-for="article in loadedOrder1"
-                         :key="article.id">
-                <div class="welcome-section__item-row">
-                  <div class="welcome-section__item-heading">
-                    {{ article.rubric.title }}
-                  </div>
-                  <div class="welcome-section__item-date">
-                    {{ $dateFns.format(article.posted_at, 'dd MMMM yyyy') }}
-                  </div>
-                </div>
-
-                <div class="welcome-section__item-title">
-                  {{ article.title }}
-                </div>
-              </nuxt-link>
-
-            </div>
-
-            <nuxt-link tag="button"
-                       :to="'/' + loadedOrder1[0].rubric.slug + ':' + loadedOrder1[0].rubric.id"
-                       class="welcome-section__btn button">
-              Смотреть все Новости
-            </nuxt-link>
+          <div class="contact-box__title">
+            Подпишитесь на рассылку и первым узнайте о запуске сайта <span>tabigat.media</span>
           </div>
 
-        </div>
+          <form class="contact-box__form" @submit.prevent="subscribe">
 
-        <div class="welcome-section__cards" v-if="randomArticles.length > 0">
-
-          <nuxt-link tag="div"
-                     :to="'/' + article.rubric.slug + ':' + article.rubric.id +
-                     '/' + article.slug + ':' + article.id"
-                     class="welcome-section__card card"
-                     v-for="(article, i) in randomArticles"
-                     :key="article.id"
-                     v-if="i >= 1">
-
-            <div class="card__img-box">
-              <img :src="article.preview_image_small_url" alt="" class="card__img">
+            <div class="contact-box__input-box">
+              <svg width="24" height="24">
+                <use href="../assets/img/icons.svg#mail-2"></use>
+              </svg>
+              <input type="email" class="contact-box__input" placeholder="E-mail" required v-model="mail">
             </div>
 
-            <div class="card__info">
+            <button class="contact-box__btn" type="submit">Отправить</button>
 
-              <div class="card__row">
-                <div class="card__heading">{{ article.rubric.title }}</div>
-
-                <div class="card__date">{{ $dateFns.format(article.posted_at, 'dd MMMM yyyy') }}</div>
-              </div>
-
-              <div class="card__title">
-                {{ article.title }}
-              </div>
-
-              <div class="card__more">
-                <p>Читать подробнее</p>
-                <svg width="20" height="20">
-                  <use href="../assets/img/icons.svg#arrow-right"></use>
-                </svg>
-              </div>
-            </div>
-          </nuxt-link>
+          </form>
 
         </div>
 
-        <div class="swiper-container welcome-section__swiper-container" v-if="randomArticles.length > 0">
-          <div class="swiper-wrapper">
+        <div class="contact-page__social-box">
 
-            <nuxt-link tag="div" :to="'/' + article.rubric.slug + ':' + article.rubric.id +
-                       '/' + article.slug + ':' + article.id"
-                       class="welcome-section__card card swiper-slide"
-                       v-for="(article, i) in randomArticles"
-                       :key="article.id"
-                       v-if="i >= 1">
+          <h4>Подпишитесь на нас в соцсетях:</h4>
 
-              <div class="card__img-box">
-                <img :src="article.preview_image_small_url" alt="" class="card__img">
-              </div>
-
-              <div class="card__info">
-
-                <div class="card__row">
-                  <div class="card__heading">{{ article.rubric.title }}</div>
-
-                  <div class="card__date">{{ $dateFns.format(article.posted_at, 'dd MMMM yyyy') }}</div>
-                </div>
-
-                <div class="card__title">
-                  {{ article.title }}
-                </div>
-
-                <div class="card__more">
-                  <p>Читать подробнее</p>
-                  <svg width="20" height="20">
-                    <use href="../assets/img/icons.svg#arrow-right"></use>
-                  </svg>
-                </div>
-              </div>
-
-            </nuxt-link>
-
+          <div class="contact-page__socials">
+            <a href="https://www.instagram.com/tabigat.media" target="_blank">
+              <svg width="24" height="24" @click="">
+                <use href="../assets/img/icons.svg#inst-brown"></use>
+              </svg>
+            </a>
+            <a href="https://www.facebook.com/tabigat.media" target="_blank">
+              <svg width="24" height="24" @click="">
+                <use href="../assets/img/icons.svg#fb-brown"></use>
+              </svg>
+            </a>
+            <a href="https://t.me/tabigatmedia" target="_blank">
+              <svg width="24" height="24" @click="">
+                <use href="../assets/img/icons.svg#tg-brown"></use>
+              </svg>
+            </a>
           </div>
-          <!-- Add Pagination -->
-          <div class="swiper-pagination welcome-section__pagination"></div>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="main__section default-view" v-if="loadedOrder2.length > 0">
-      <div class="default-view__container">
-        <div class="default-view__row">
-          <h4 class="default-view__heading heading-medium">
-            {{ loadedOrder2[0].rubric.title }}
-          </h4>
-
-          <nuxt-link tag="div"
-                     :to="'/' + loadedOrder2[0].rubric.slug + ':' + loadedOrder2[0].rubric.id"
-                     class="default-view__more">
-            <p>Смотреть все</p>
-            <svg width="24" height="24">
-              <use href="../assets/img/icons.svg#arrow-right"></use>
-            </svg>
-          </nuxt-link>
-
-        </div>
-
-        <div class="default-view__cards">
-
-          <nuxt-link tag="div"
-                     :to="'/' + article.rubric.slug + ':' + article.rubric.id + '/' +
-                     article.slug + ':' + article.id"
-                     class="default-view__card card card--w-desc"
-                     v-for="(article, i) in loadedOrder2"
-                     :key="article.id">
-
-            <div class="card__img-box">
-              <img :src="article.preview_image_small_url" alt="" class="card__img">
-
-              <div class="card__views">
-                <svg width="20" height="20">
-                  <use href="../assets/img/icons.svg#eye"></use>
-                </svg>
-                {{ article.views }}
-              </div>
-
-            </div>
-
-            <div class="card__info">
-
-              <div class="card__row">
-                <div class="card__heading"> {{ article.rubric.title }}</div>
-
-                <div class="card__date">{{ $dateFns.format(article.posted_at, 'dd MMMM yyyy') }}</div>
-              </div>
-
-              <div class="card__title">
-                {{ article.title }}
-              </div>
-
-              <div class="card__desc">
-                {{ article.description }}
-              </div>
-            </div>
-
-          </nuxt-link>
-
-        </div>
-
-        <div class="swiper-container default-view__swiper-container default-view__swiper-container--1">
-          <div class="swiper-wrapper">
-
-            <nuxt-link tag="div"
-                       :to="'/' + article.rubric.slug + ':' + article.rubric.id + '/' +
-                       article.slug + ':' + article.id"
-                       class="default-view__card card card--w-desc swiper-slide"
-                       v-for="article in loadedOrder2"
-                       :key="article.id">
-
-              <div class="card__img-box">
-                <img :src="article.preview_image_small_url" alt="" class="card__img">
-
-                <div class="card__views">
-                  <svg width="20" height="20">
-                    <use href="../assets/img/icons.svg#eye"></use>
-                  </svg>
-                  {{ article.views }}
-                </div>
-
-              </div>
-
-              <div class="card__info">
-
-                <div class="card__row">
-                  <div class="card__heading">{{ article.rubric.title }}</div>
-
-                  <div class="card__date">{{ $dateFns.format(article.posted_at, 'dd MMMM yyyy') }}</div>
-                </div>
-
-                <div class="card__title">
-                  {{ article.title }}
-                </div>
-
-                <div class="card__desc">
-                  {{ article.description }}
-                </div>
-              </div>
-
-            </nuxt-link>
-
-          </div>
-          <!-- Add Pagination -->
-          <div class="swiper-pagination default-view__pagination default-view__pagination--1"></div>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="main__section accent-section" v-if="loadedFavourites.length > 0">
-
-      <div class="accent-section__container">
-
-        <div class="accent-section__list">
-          <nuxt-link tag="div"
-                     :to="'/' + article.rubric.slug + ':' + article.rubric.id + '/' +
-                     article.slug + ':' + article.id"
-                     class="accent-section__card accent-card"
-                     v-for="article in loadedFavourites"
-                     :key="article.id">
-            <img :src="article.preview_image_small_url" alt="" class="accent-card__img">
-
-            <div class="accent-card__info">
-
-              <div class="accent-card__heading">
-                {{ article.rubric.title }}
-              </div>
-
-              <div class="accent-card__title">
-                {{ article.title }}
-              </div>
-
-              <div class="accent-card__desc">
-                {{ article.description }}
-              </div>
-
-              <div class="accent-card__details">
-                <span>{{ $dateFns.format(article.posted_at, 'dd MMMM yyyy') }}</span>
-                <span>читать {{ article.read_time }}</span>
-                <span>
-                <svg width="20" height="20">
-                  <use href="../assets/img/icons.svg#eye"></use>
-                </svg>
-                {{ article.views }}
-              </span>
-              </div>
-            </div>
-
-          </nuxt-link>
-        </div>
-
-        <div class="swiper-container accent-section__swiper-container">
-          <div class="swiper-wrapper">
-
-            <nuxt-link tag="div"
-                       :to="'/' + article.rubric.slug + ':' + article.rubric.id + '/' +
-                       article.slug + ':' + article.id"
-                       class="accent-section__card accent-card swiper-slide"
-                       v-for="article in loadedFavourites"
-                       :key="article.id">
-              <img :src="article.preview_image_small_url" alt="" class="accent-card__img">
-
-              <div class="accent-card__info">
-
-                <div class="accent-card__heading">
-                  {{ article.rubric.title }}
-                </div>
-
-                <div class="accent-card__title">
-                  {{ article.title }}
-                </div>
-
-                <div class="accent-card__desc">
-                  {{ article.description }}
-                </div>
-
-                <div class="accent-card__details">
-                  <span>{{ $dateFns.format(article.posted_at, 'dd MMMM yyyy') }}</span>
-                  <span>читать {{ article.read_time }}</span>
-                  <span>
-                <svg width="20" height="20">
-                  <use href="../assets/img/icons.svg#eye"></use>
-                </svg>
-                {{ article.views }}
-              </span>
-                </div>
-              </div>
-
-            </nuxt-link>
-
-          </div>
-          <!-- Add Pagination -->
-          <div class="swiper-pagination accent-section__pagination"></div>
-        </div>
-
-      </div>
-
-    </section>
-
-    <section class="main__section fluid-view" v-if="loadedOrder3.length > 0">
-      <div class="fluid-view__container">
-
-        <div class="fluid-view__row">
-          <h4 class="fluid-view__heading heading-medium">
-            {{ loadedOrder3[0].rubric.title }}
-          </h4>
-
-          <nuxt-link tag="div"
-                     :to="'/' + loadedOrder3[0].rubric.slug + ':' + loadedOrder3[0].rubric.id"
-                     class="fluid-view__more">
-            <p>Смотреть все</p>
-            <svg width="24" height="24">
-              <use href="../assets/img/icons.svg#arrow-right"></use>
-            </svg>
-          </nuxt-link>
-        </div>
-
-        <div class="fluid-view__top">
-          <nuxt-link tag="div"
-                     :to="'/' + article.rubric.slug + ':' + article.rubric.id + '/' +
-                     article.slug + ':' + article.id"
-                     class="fluid-view__card card card--big"
-                     v-for="(article, i) in loadedOrder3"
-                     :key="article.id"
-                     v-if="i < 2">
-            <div class="card__img-box">
-              <img :src="article.preview_image_small_url" alt="" class="card__img">
-
-              <div class="card__views">
-                <svg width="20" height="20">
-                  <use href="../assets/img/icons.svg#eye"></use>
-                </svg>
-                {{ article.views }}
-              </div>
-
-            </div>
-
-            <div class="card__info">
-
-              <div class="card__row">
-                <div class="card__heading">{{ article.rubric.title }}</div>
-                <!--                <div class="card__date">1 октябрь 2021</div>-->
-              </div>
-
-              <div class="card__author">
-                {{ article.author.full_name }}
-              </div>
-
-              <div class="card__title">
-                {{ article.title }}
-              </div>
-
-              <div class="card__desc">
-                {{ article.description }}
-              </div>
-
-              <div class="card__details">
-                <span>{{ $dateFns.format(article.posted_at, 'dd MMMM yyyy') }}</span>
-                <span>читать {{ article.read_time }}</span>
-              </div>
-            </div>
-          </nuxt-link>
-        </div>
-
-        <div class="fluid-view__bottom">
-
-          <nuxt-link tag="div"
-                     :to="'/' + article.rubric.slug + ':' + article.rubric.id + '/' +
-                     article.slug + ':' + article.id"
-                     class="fluid-view__card card card--minimized"
-                     v-for="(article, i) in loadedOrder3"
-                     :key="article.id"
-                     v-if="i > 1">
-
-            <div class="card__img-box">
-              <img :src="article.preview_image_small_url" alt="" class="card__img">
-
-              <div class="card__views">
-                <svg width="20" height="20">
-                  <use href="../assets/img/icons.svg#eye"></use>
-                </svg>
-                {{ article.views }}
-              </div>
-
-            </div>
-
-            <div class="card__info">
-
-              <div class="card__row">
-                <div class="card__heading">{{ article.rubric.title }}</div>
-
-                <div class="card__date">{{ $dateFns.format(article.posted_at, 'dd MMMM yyyy') }}</div>
-              </div>
-
-              <div class="card__author">
-                {{ article.author.full_name }}
-              </div>
-
-              <div class="card__title">
-                {{ article.title }}
-              </div>
-
-            </div>
-          </nuxt-link>
-
-        </div>
-
-        <div class="swiper-container fluid-view__swiper-container">
-          <div class="swiper-wrapper">
-
-            <nuxt-link tag="div"
-                       :to="'/' + article.rubric.slug + ':' + article.rubric.id + '/' +
-                       article.slug + ':' + article.id"
-                       class="fluid-view__card card card--minimized swiper-slide"
-                       v-for="article in loadedOrder3"
-                       :key="article.id">
-
-              <div class="card__img-box">
-                <img :src="article.preview_image_small_url" alt="" class="card__img">
-
-                <div class="card__views">
-                  <svg width="20" height="20">
-                    <use href="../assets/img/icons.svg#eye"></use>
-                  </svg>
-                  {{ article.views }}
-                </div>
-
-              </div>
-
-              <div class="card__info">
-
-                <div class="card__row">
-                  <div class="card__heading">{{ article.rubric.title }}</div>
-
-                  <div class="card__date">{{ $dateFns.format(article.posted_at, 'dd MMMM yyyy') }}</div>
-                </div>
-
-                <div class="card__author">
-                  {{ article.author.full_name }}
-                </div>
-
-                <div class="card__title">
-                  {{ article.title }}
-                </div>
-
-              </div>
-            </nuxt-link>
-
-          </div>
-          <!-- Add Pagination -->
-          <div class="swiper-pagination fluid-view__pagination"></div>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="main__section red-book" v-if="loadedRedBook.length > 0">
-      <div class="red-book__container">
-        <div class="red-book__row">
-          <h4 class="red-book__heading heading-medium heading-medium--red">
-            Красная книга Казахстана
-          </h4>
-
-          <nuxt-link tag="div" to="/red-book" class="red-book__more">
-            <p>Смотреть все</p>
-            <svg width="24" height="24">
-              <use href="../assets/img/icons.svg#arrow-right"></use>
-            </svg>
-          </nuxt-link>
-        </div>
-
-        <div class="red-book__cards">
-          <nuxt-link tag="div"
-                     :to="'/red-book/' + article.slug + ':' + article.id" class="red-book__card red-card"
-                     v-for="article in loadedRedBook"
-                     :key="article.id">
-            <img :src="article.preview_image_small_url" alt="" class="red-card__img">
-
-            <div class="red-card__info">
-              <div class="red-card__heading">
-                Красная книга Казахстана
-              </div>
-
-              <div class="red-card__title">
-                -{{ article.name }}
-                <br>
-                -{{ article.name_latin }}
-              </div>
-
-              <div class="red-card__subtitle">
-                {{ article.description }}
-              </div>
-            </div>
-          </nuxt-link>
         </div>
       </div>
-    </section>
+    </div>
 
-    <section class="main__section solo-view" v-if="loadedOrder4.length > 0">
-      <div class="solo-view__container">
+    <success-modal v-if="showModal"
+                   @close="showModal = false"
+                   :title="modalTitle"
+                   :subtitle="modalSubtitle"
+                   :type="modalType"></success-modal>
 
-        <div class="solo-view__row">
-          <h4 class="solo-view__heading heading-medium">
-            {{ loadedOrder4[0].rubric.title }}
-          </h4>
+    <div class="mailing-section__loading-box" v-if="loadingState">
+      <img src="../assets/img/icons/loader-bird.png" alt="" class="mailing-section__loader">
+    </div>
 
-          <nuxt-link tag="div"
-                     :to="'/' + loadedOrder4[0].rubric.slug + ':' + loadedOrder4[0].rubric.id"
-                     class="solo-view__more">
-            <p>Смотреть все</p>
-            <svg width="24" height="24">
-              <use href="../assets/img/icons.svg#arrow-right"></use>
-            </svg>
-          </nuxt-link>
-        </div>
-
-        <div class="solo-view__cards">
-
-          <nuxt-link tag="div"
-                     :to="'/' + loadedOrder4[0].rubric.slug + ':' + loadedOrder4[0].rubric.id + '/' +
-                     loadedOrder4[0].slug + ':' + loadedOrder4[0].id"
-                     class="solo-view__card card card--big">
-            <div class="card__img-box">
-              <img :src="loadedOrder4[0].preview_image_small_url" alt="" class="card__img">
-
-              <div class="card__views">
-                <svg width="20" height="20">
-                  <use href="../assets/img/icons.svg#eye"></use>
-                </svg>
-                {{ loadedOrder4[0].views }}
-              </div>
-
-            </div>
-
-            <div class="card__info">
-
-              <div class="card__row">
-                <div class="card__author card__author--mb0">
-                  {{ loadedOrder4[0].author.full_name }}
-                </div>
-
-                <div class="card__date">{{ $dateFns.format(loadedOrder4[0].posted_at, 'dd MMMM yyyy') }}</div>
-              </div>
-
-              <div class="card__title card__title--multiline">
-                {{ loadedOrder4[0].title }}
-              </div>
-
-              <div class="card__desc card__desc--mb0">
-                {{ loadedOrder4[0].description }}
-              </div>
-            </div>
-          </nuxt-link>
-
-          <div class="solo-view__list">
-
-            <nuxt-link tag="div"
-                       :to="'/' + article.rubric.slug + ':' + article.rubric.id + '/' +
-                       article.slug + ':' + article.id"
-                       class="solo-view__card solo-view__card--mb10 card card--nophoto"
-                       v-for="(article, i) in loadedOrder4"
-                       :key="article.id"
-                       v-if="i > 0 && i !== 3">
-
-              <div class="card__heading">
-                {{ article.rubric.title }}
-              </div>
-
-              <div class="card__grey-text">
-                {{ $dateFns.format(article.posted_at, 'dd MMMM yyyy') }}
-                -
-                {{ article.author.full_name }}
-              </div>
-
-              <div class="card__title">
-                {{ article.title }}
-              </div>
-
-              <div class="card__desc">
-                {{ article.description }}
-              </div>
-            </nuxt-link>
-
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <section class="main__section default-view" v-if="loadedOrder5.length > 0">
-      <div class="default-view__container">
-        <div class="default-view__row">
-          <h4 class="default-view__heading heading-medium">
-            {{ loadedOrder5[0].rubric.title }}
-          </h4>
-
-          <nuxt-link tag="div"
-                     :to="'/' + loadedOrder5[0].rubric.slug + ':' + loadedOrder5[0].rubric.id"
-                     class="default-view__more">
-            <p>Смотреть все</p>
-            <svg width="24" height="24">
-              <use href="../assets/img/icons.svg#arrow-right"></use>
-            </svg>
-          </nuxt-link>
-        </div>
-
-        <div class="default-view__cards">
-
-          <nuxt-link tag="div"
-                     :to="'/' + article.rubric.slug + ':' + article.rubric.id + '/' + article.slug + ':' + article.id"
-                     class="default-view__card card card--w-desc"
-                     v-for="article in loadedOrder5" :key="article.id">
-
-            <div class="card__img-box">
-              <img :src="article.preview_image_small_url" alt="" class="card__img">
-
-              <div class="card__views">
-                <svg width="20" height="20">
-                  <use href="../assets/img/icons.svg#eye"></use>
-                </svg>
-                {{ article.views }}
-              </div>
-
-            </div>
-
-            <div class="card__info">
-
-              <div class="card__row">
-                <div class="card__heading">
-                  {{ article.rubric.title }}
-                </div>
-
-                <div class="card__date">
-                  {{ $dateFns.format(article.posted_at, 'dd MMMM yyyy') }}
-                </div>
-              </div>
-
-              <div class="card__title">
-                {{ article.title }}
-              </div>
-
-              <div class="card__desc">
-                {{ article.description }}
-              </div>
-            </div>
-
-          </nuxt-link>
-
-        </div>
-
-        <div class="swiper-container default-view__swiper-container default-view__swiper-container--2">
-          <div class="swiper-wrapper">
-
-            <nuxt-link tag="div"
-                       :to="'/' + article.rubric.slug + ':' + article.rubric.id + '/' + article.slug + ':' + article.id"
-                       class="default-view__card card card--w-desc swiper-slide"
-                       v-for="article in loadedOrder5"
-                       :key="article.id">
-
-              <div class="card__img-box">
-                <img :src="article.preview_image_small_url" alt="" class="card__img">
-
-                <div class="card__views">
-                  <svg width="20" height="20">
-                    <use href="../assets/img/icons.svg#eye"></use>
-                  </svg>
-                  {{ article.views }}
-                </div>
-
-              </div>
-
-              <div class="card__info">
-
-                <div class="card__row">
-                  <div class="card__heading">
-                    {{ article.rubric.title }}
-                  </div>
-
-                  <div class="card__date">
-                    {{ $dateFns.format(article.posted_at, 'dd MMMM yyyy') }}
-                  </div>
-                </div>
-
-                <div class="card__title">
-                  {{ article.title }}
-                </div>
-
-                <div class="card__desc">
-                  {{ article.description }}
-                </div>
-              </div>
-
-            </nuxt-link>
-
-          </div>
-          <!-- Add Pagination -->
-          <div class="swiper-pagination default-view__pagination default-view__pagination--2"></div>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="main__section staggered-view" v-if="loadedOrder6.length > 0">
-      <div class="staggered-view__container">
-
-        <div class="staggered-view__row">
-          <h4 class="staggered-view__heading heading-medium">
-            {{ loadedOrder6[0].rubric.title }}
-          </h4>
-
-          <nuxt-link tag="div"
-                     :to="'/' + loadedOrder6[0].rubric.slug + ':' + loadedOrder6[0].rubric.id"
-                     class="staggered-view__more">
-            <p>Смотреть все</p>
-            <svg width="24" height="24">
-              <use href="../assets/img/icons.svg#arrow-right"></use>
-            </svg>
-          </nuxt-link>
-        </div>
-
-        <div class="staggered-view__cards">
-
-          <nuxt-link tag="div"
-                     :to="'/' + article.rubric.slug + ':' + article.rubric.id + '/' + article.slug + ':' + article.id"
-                     class="staggered-view__card staggered-card"
-                     v-for="(article, k) in loadedOrder6"
-                     :key="article.id"
-                     :class="{'staggered-card--phone-nophoto' : k === 1}">
-
-            <div class="staggered-card__img-box">
-              <img :src="article.preview_image_small_url" alt="" class="staggered-card__img">
-            </div>
-
-            <div class="staggered-card__info">
-              <div class="staggered-card__heading">
-                {{ article.rubric.title }}
-              </div>
-
-              <div class="staggered-card__grey-text">
-                {{ $dateFns.format(article.posted_at, 'dd MMMM yyyy') }}
-                -
-                {{ article.author.full_name }}
-              </div>
-
-              <div class="staggered-card__title">
-                {{ article.title }}
-              </div>
-
-              <div class="staggered-card__subtitle">
-                {{ article.description }}
-              </div>
-            </div>
-
-          </nuxt-link>
-
-        </div>
-
-      </div>
-    </section>
-
-    <mail-box class="main__section"></mail-box>
-
-  </main>
+  </div>
 </template>
 
 <script>
-import Swiper, {Pagination} from 'swiper';
-import MailBox from "../components/MailBox";
-
-Swiper.use([Pagination]);
+import SuccessModal from "../components/SuccessModal";
 
 export default {
-  scrollToTop: true,
-  // asyncData( {$dateFns} ) {
-  //   return {
-  //     dateFormatted: $dateFns.format(new Date())
-  //   }
-  // },
   data() {
     return {
-      welcomeCardsSwiper: null,
-      defaultViewSwiper1: null,
-      defaultViewSwiper2: null,
-      accentSectionSwiper: null,
-      fluidViewSwiper: null,
-      soloViewSwiper: null,
+      mail: '',
+      modalType: false,
+      showModal: false,
+      modalTitle: '',
+      modalSubtitle: '',
     };
   },
   components: {
-    MailBox
+    SuccessModal
   },
   computed: {
-    loadedOrder1() {
-      if (this.$store.getters.loadedOrder1) {
-        return this.$store.getters.loadedOrder1
-      }
-    },
-    randomArticles() {
-      return this.$store.getters.loadedRandomArticles
-    },
-    loadedOrder2() {
-      return this.$store.getters.loadedOrder2
-    },
-    loadedOrder3() {
-      return this.$store.getters.loadedOrder3
-    },
-    loadedOrder4() {
-      return this.$store.getters.loadedOrder4
-    },
-    loadedOrder5() {
-      return this.$store.getters.loadedOrder5
-    },
-    loadedOrder6() {
-      return this.$store.getters.loadedOrder6
-    },
-    loadedRedBook() {
-      return this.$store.getters.loadedRedBook
-    },
-    loadedFavourites() {
-      return this.$store.getters.loadedFavourites
-    },
-    loadedDailyArticle() {
-      if (this.$store.getters.loadedDailyArticle) {
-        let dailyArticle = []
-        dailyArticle.push(this.$store.getters.loadedDailyArticle)
-        return dailyArticle
-      } else {
-        return []
-      }
+    loadingState() {
+      return this.$store.getters.loadingState
     }
   },
-  methods: {},
+  methods: {
+    preventScroll(e) {
+      e.preventDefault()
+      e.stopPropagation()
+
+      return false;
+    },
+
+    subscribe() {
+      this.$store.commit('setLoadingState', true)
+
+      document.querySelector('.ultra-main').addEventListener('wheel', this.preventScroll)
+
+      this.$axios.post(process.env.API + 'mailings/subscribe/', {
+        email: this.mail
+      })
+          .then(response => {
+            this.$axios.post('https://api.sendpulse.com/addressbooks/' + localStorage.bookId + '/emails', {
+              emails: [this.mail]
+            }, {
+              headers: {
+                'Authorization': 'Bearer ' + localStorage.access_token
+              }
+            }).catch(e => {
+              document.querySelector('.ultra-main').removeEventListener('wheel', this.preventScroll)
+              this.$store.commit('setLoadingState', false)
+            })
+                .then(response => {
+                  if (response.data.result === true) {
+                    this.$store.commit('setLoadingState', false)
+                    this.modalType = true
+                    this.showModal = true
+                    this.modalTitle = 'Спасибо!'
+                    this.modalSubtitle = 'Вы успешно подписались на рассылку от Tabigat media'
+                    this.mail = ''
+                    document.querySelector('.ultra-main').removeEventListener('wheel', this.preventScroll)
+                  } else {
+                    this.$store.commit('setLoadingState', false)
+                    this.modalType = false
+                    this.showModal = true
+                    this.modalTitle = 'Упс!'
+                    this.modalSubtitle = 'Произошла ошибка, попробуйте снова'
+                    this.mail = ''
+                    document.querySelector('.ultra-main').removeEventListener('wheel', this.preventScroll)
+                  }
+                })
+                .catch(e => console.log(e))
+          })
+          .catch(e => {
+            if (e.response.data.errors.email[0] === "The email has already been taken.") {
+              this.$store.commit('setLoadingState', false)
+              this.modalType = false
+              this.showModal = true
+              this.modalTitle = 'Упс!'
+              this.modalSubtitle = 'Произошла ошибка, данная почта уже подписана на рассылку'
+              this.mail = ''
+              document.querySelector('.ultra-main').removeEventListener('wheel', this.preventScroll)
+            } else {
+              this.$store.commit('setLoadingState', false)
+              this.modalType = false
+              this.showModal = true
+              this.modalTitle = 'Упс!'
+              this.modalSubtitle = 'Произошла ошибка, попробуйте снова'
+              this.mail = ''
+              document.querySelector('.ultra-main').removeEventListener('wheel', this.preventScroll)
+            }
+          })
+    }
+  },
   mounted() {
+    this.$axios.post('https://api.sendpulse.com/oauth/access_token', {
+      "grant_type": "client_credentials",
+      "client_id": process.env.clientId,
+      "client_secret": process.env.clientSecret
+    })
+        .then(response => {
+          localStorage.access_token = response.data.access_token
 
-    this.welcomeCardsSwiper = new Swiper('.welcome-section__swiper-container', {
-      slidesPerView: "auto",
-      spaceBetween: 8,
-      pagination: {
-        el: '.welcome-section__pagination',
-      },
-
-      breakpoints: {
-        768: {
-          slidesPerView: 3,
-          spaceBetween: 20,
-        },
-      }
-    });
-
-    this.defaultViewSwiper1 = new Swiper('.default-view__swiper-container--1', {
-      slidesPerView: "auto",
-      spaceBetween: 8,
-      pagination: {
-        el: '.default-view__pagination--1',
-      },
-      breakpoints: {
-        768: {
-          slidesPerView: 3,
-          spaceBetween: 20,
-        },
-      }
-    });
-
-    this.defaultViewSwiper2 = new Swiper('.default-view__swiper-container--2', {
-      slidesPerView: "auto",
-      spaceBetween: 8,
-      pagination: {
-        el: '.default-view__pagination--2',
-      },
-      breakpoints: {
-        768: {
-          slidesPerView: 3,
-          spaceBetween: 20,
-        },
-      }
-    });
-
-    this.accentSectionSwiper = new Swiper('.accent-section__swiper-container', {
-      slidesPerView: 1,
-      spaceBetween: 20,
-      pagination: {
-        el: '.accent-section__pagination',
-      },
-      breakpoints: {
-        768: {
-          slidesPerView: "auto",
-          spaceBetween: 20,
-        },
-      }
-    });
-
-    this.fluidViewSwiper = new Swiper('.fluid-view__swiper-container', {
-      slidesPerView: "auto",
-      spaceBetween: 8,
-      pagination: {
-        el: '.fluid-view__pagination',
-      },
-      breakpoints: {
-        768: {
-          slidesPerView: 3,
-          spaceBetween: 20,
-        },
-      }
-    });
-
-    this.soloViewSwiper = new Swiper('.solo-view__swiper-container', {
-      slidesPerView: 1,
-      spaceBetween: 56,
-      pagination: {
-        el: '.solo-view__pagination',
-      },
-    });
+          this.$axios.get('https://api.sendpulse.com/addressbooks?limit=10', {
+            headers: {
+              'Authorization': 'Bearer ' + response.data.access_token
+            }
+          })
+              .then(response => {
+                localStorage.bookId = response.data[0].id
+              })
+              .catch(e => console.log(e))
+        })
+        .catch(e => console.log(e))
   }
 }
 </script>
