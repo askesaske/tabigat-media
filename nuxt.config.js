@@ -59,7 +59,7 @@ export default {
     mode: 'out-in'
   },
   server: {
-    port: 3001
+    port: 3002
   },
 
   env: {
