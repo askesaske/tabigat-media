@@ -45,7 +45,7 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     credentials: true,
-    baseURL: "http://localhost:3001"
+    baseURL: "http://localhost:3002"
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
